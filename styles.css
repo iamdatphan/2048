@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: Arial;
+}
+
+body {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 7.5vmin;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+    grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+    background-color: #ccc;
+    gap: var(--cell-gap);
+    border-radius: 1vmin;
+    padding: var(--cell-gap);
+    position: relative;
+}
+
+.cell {
+    background-color: #aaa;
+    border-radius: 1vmin;
+}
+
+.tile {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border-radius: 1vmin;
+    font-weight: bold;
+
+    /* 
+        - var(--y): The row index of the element.
+        - var(--cell-size): The height of each cell in the grid.
+        - var(--cell-gap): The gap between cells in the grid and the padding of the grid.
+
+        Calculate the top position of the element by multiplying the row index
+        by the height of each cell and adding the gap between cells
+        plus one more gap for the padding of the grid.
+
+        Same goes for the left position of the element.
+    */
+    top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+    left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+
+    background-color: hsl(200, 50%, var(--background-lightness));
+    color: hsl(200, 25%, var(--text-lightness));
+    /* Animation is used when the tiles appear */
+    animation: show 200ms ease-in-out;
+    /* Transition is used when the tiles move */
+    transition: 100ms ease-in-out;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0.5;
+        transform: scale(0);
+    }
+}
